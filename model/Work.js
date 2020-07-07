@@ -10,4 +10,4 @@ const WorkSchema = new Schema({
 
 const Work = mongoose.model('Work', WorkSchema);
 
-export default Work;
+module.exports = Work;
