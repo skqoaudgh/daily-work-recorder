@@ -2,9 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
-const accountRouter = require('./router/account');
-const workRouter = require('./router/work');
-
 const app = express();
 
 mongoose.connect(process.env.MONGO_URL, {
@@ -20,5 +17,6 @@ app.engine('html', require('ejs').renderFile);
 
 app.use(express.static('public'));
 
-app.use('/account', accountRouter);
-app.use('/', workRouter);
+app.get('/', (req, res, next) => {
+  res.render('index.ejs');
+});
