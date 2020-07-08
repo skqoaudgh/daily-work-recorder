@@ -4,8 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Work Recorder</title>
+
+    <link rel="stylesheet" href="./style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    work page
+    <div class="main">
+      <p class="title text-center text-uppercase font-weight-bold">
+        Daily Work Recorder
+      </p>
+      <form
+        class="form-row justify-content-center"
+        action="/work"
+        method="POST"
+      >
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            name="work"
+            placeholder="오늘 한 일을 입력하세요"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary col-1">
+          확인
+        </button>
+      </form>
+      <% if(workList != null && workList.length > 0) { %>
+      <ul class="list">
+        <% for ( var i = 0; i < workList.length; i++) { %>
+        <li class="item" id="<%=workList[i]._id%>">
+          <span>
+            <%= workList[i].work %>
+          </span>
+          <small> <%= workList[i].startTime %> </small>
+          <% if(workList[i].endTime) { %> ~
+          <small>
+            <%= workList[i].endTime %>
+          </small>
+          <% } %>
+        </li>
+        <% } %>
+      </ul>
+      <button type="button" class="btn btn-danger" id="resetButton">
+        초기화
+      </button>
+      <% }else{ %>
+      <p class="empty text-center">
+        오늘 한 일이 없습니다.
+      </p>
+      <% } %>
+    </div>
   </body>
+  <script src="./js/script.js"></script>
 </html>

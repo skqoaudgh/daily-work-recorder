@@ -1,0 +1,64 @@
+.main {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+.title {
+  margin: 12px;
+  padding: 2px;
+  font-size: 32px;
+  color: #aaa;
+  border-radius: 10px;
+  transition: all 0.1s ease-in-out;
+}
+
+.title:hover {
+  background: #aaa;
+  color: white;
+}
+
+.empty {
+  color: grey;
+}
+
+form {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+form div {
+  margin-right: 20px;
+}
+
+.list {
+  list-style: none;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.item {
+  cursor: pointer;
+  margin: 2px;
+  padding: 10px 30px 10px 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.item span {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.item small {
+  font-size: 15px;
+  color: grey;
+}
+
+.item:nth-child(odd) {
+  background: rgba(174, 199, 255, 0.3);
+  border-radius: 16px;
+}
+
+#resetButton {
+  float: right;
+  margin: 20px;
+}
