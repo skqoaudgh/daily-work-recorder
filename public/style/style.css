@@ -24,10 +24,13 @@
 form {
   margin-top: 50px;
   margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
 }
 
-form div {
-  margin-right: 20px;
+.form-control {
+  width: 70%;
+  margin-right: 5%;
 }
 
 .list {
@@ -67,4 +70,25 @@ form div {
 #downloadButton {
   float: right;
   margin: 20px;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    width: 80%;
+  }
+}
+
+@media (max-width: 576px) {
+  .main {
+    width: 95%;
+  }
+
+  form {
+    flex-direction: column;
+  }
+
+  .form-control {
+    margin-bottom: 10px;
+    width: 100%;
+  }
 }

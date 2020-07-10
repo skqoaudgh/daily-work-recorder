@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Work Recorder</title>
 
-    <link rel="stylesheet" href="./style/style.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -16,26 +15,21 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
     <div class="main">
       <p class="title text-center text-uppercase font-weight-bold">
         Daily Work Recorder
       </p>
-      <form
-        class="form-row justify-content-center"
-        action="/work"
-        method="POST"
-      >
-        <div class="col-8">
-          <input
-            type="text"
-            class="form-control"
-            name="work"
-            placeholder="오늘 한 일을 입력하세요"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary col-1">
+      <form action="/work" method="POST">
+        <input
+          type="text"
+          class="form-control"
+          name="work"
+          placeholder="오늘 한 일을 입력하세요"
+        />
+        <button type="submit" class="btn btn-primary submit">
           확인
         </button>
       </form>
