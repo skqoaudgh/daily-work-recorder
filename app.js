@@ -1,8 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
+const session = require('express-session');
+const flash = require('connect-flash');
 const compression = require('compression');
-
 const dotenv = require('dotenv').config();
+
+const { getFormattedDate } = require('./util');
 const Work = require('./model/Work');
 
 const app = express();
@@ -24,14 +28,34 @@ app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    cookie: { maxAge: 60000 },
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SECRET,
+  })
+);
+app.use(flash());
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_ID,
+    pass: process.env.GMAIL_PW,
+  },
+});
 
 app.get('/', async (req, res, next) => {
   try {
     const list = await Work.find().sort('startTime');
-    res.render('index.ejs', { workList: list });
+    res.render('index.ejs', {
+      workList: list,
+      message: req.flash('msg'),
+    });
   } catch (err) {
     console.error(err);
-    res.render('index.ejs', { workList: [] });
+    res.render('index.ejs', { workList: [], message: req.flash('msg') });
   }
 });
 
@@ -71,4 +95,29 @@ app.get('/reset', async (req, res, next) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+app.post('/mail', (req, res, nect) => {
+  const { url } = req.body;
+  const timeString = getFormattedDate(new Date());
+  const mailOption = {
+    from: process.env.GMAIL_ID,
+    to: process.env.GMAIL_ID,
+    subject: `[DailyWorkRecorder] 오늘의 업무 내용이 도착했습니다. - ${timeString}`,
+    text: 'Daily Work Recorder로부터 오늘의 업무 내용이 도착했습니다.',
+    attachments: [
+      {
+        path: url,
+      },
+    ],
+  };
+
+  transporter.sendMail(mailOption, (err, info) => {
+    if (err) {
+      console.error(err);
+    } else {
+      req.flash('msg', '이메일을 전송했습니다.');
+      res.redirect('/');
+    }
+  });
 });

@@ -67,7 +67,7 @@ form {
   margin: 20px;
 }
 
-#downloadButton {
+#mailButton {
   float: right;
   margin: 20px;
 }
@@ -91,4 +91,13 @@ form {
     margin-bottom: 10px;
     width: 100%;
   }
+}
+
+.message {
+  display: block;
+  clear: both;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #94b6ff;
 }

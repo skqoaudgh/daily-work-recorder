@@ -1,6 +1,6 @@
 const list = document.getElementsByClassName('list')[0];
 const reset = document.getElementById('resetButton');
-const download = document.getElementById('downloadButton');
+const mail = document.getElementById('mailButton');
 
 const getFormattedDate = (date) => {
   const year = date.getFullYear();
@@ -24,16 +24,28 @@ reset &&
     window.location.href = '/reset';
   });
 
-download &&
-  download.addEventListener('click', (e) => {
+mail &&
+  mail.addEventListener('click', (e) => {
     html2canvas(list).then((canvas) => {
-      const image = canvas.toDataURL();
-      const fileName = getFormattedDate(new Date());
-      const link = document.createElement('a');
-      link.download = fileName;
-      link.href = image;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const url = canvas.toDataURL();
+      const form = document.createElement('form');
+      form.action = '/mail';
+      form.method = 'post';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = 'url';
+      input.value = url;
+
+      const submit = document.createElement('button');
+      submit.type = 'submit';
+
+      document.body.appendChild(form);
+      form.appendChild(input);
+      form.appendChild(submit);
+
+      submit.click();
+
+      document.body.removeChild(form);
     });
   });

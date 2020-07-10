@@ -52,8 +52,8 @@
       <button type="button" class="btn btn-danger" id="resetButton">
         초기화
       </button>
-      <button type="button" class="btn btn-info" id="downloadButton">
-        저장
+      <button type="button" class="btn btn-info" id="mailButton">
+        메일 전송
       </button>
       <% }else{ %>
       <p class="empty text-center">
@@ -64,4 +64,11 @@
   </body>
   <script src="./js/script.js"></script>
   <script src="./js/html2canvas.min.js"></script>
+  <script type="text/javascript">
+    const message = '<%= message %>';
+
+    if (message) {
+      alert(message);
+    }
+  </script>
 </html>
