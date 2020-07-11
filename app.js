@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const session = require('express-session');
 const flash = require('connect-flash');
+const favicon = require('serve-favicon');
+const path = require('path');
+
 const compression = require('compression');
 const dotenv = require('dotenv').config();
 
@@ -23,8 +26,8 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 app.use(compression());
-
 app.use(express.static('public'));
+app.use(favicon(path.join(__dirname, 'public/assets/favicon.ico')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
