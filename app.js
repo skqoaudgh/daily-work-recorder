@@ -66,7 +66,9 @@ app.post('/work', async (req, res, next) => {
   try {
     const { work } = req.body;
     if (work.length > 0) {
-      const startTime = new Date().toLocaleString('ko-KR');
+      const date = new Date();
+      date.setHours(date.getHours() + Number(process.env.HOUR));
+      const startTime = date.toLocaleString('ko-KR');
 
       const newWork = new Work({ work, startTime });
       await newWork.save();
