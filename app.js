@@ -51,22 +51,25 @@ app.get('/', async (req, res, next) => {
     const list = await Work.find().sort('startTime');
     res.render('index.ejs', {
       workList: list,
-      message: req.flash('msg'),
+      message: req.flash('message'),
     });
   } catch (err) {
     console.error(err);
-    res.render('index.ejs', { workList: [], message: req.flash('msg') });
+    res.render('index.ejs', { workList: [], message: req.flash('message') });
   }
 });
 
 app.post('/work', async (req, res, next) => {
   try {
     const { work } = req.body;
-    const startTime = new Date().toLocaleString('ko-KR');
+    if (work.length > 0) {
+      const startTime = new Date().toLocaleString('ko-KR');
 
-    const newWork = new Work({ work, startTime });
-    await newWork.save();
-
+      const newWork = new Work({ work, startTime });
+      await newWork.save();
+    } else {
+      req.flash('message', '아무것도 입력하지 않았습니다.');
+    }
     res.redirect('/');
   } catch (err) {
     console.error(err);
@@ -116,7 +119,7 @@ app.post('/mail', (req, res, nect) => {
     if (err) {
       console.error(err);
     } else {
-      req.flash('msg', '이메일을 전송했습니다.');
+      req.flash('message', '이메일을 전송했습니다.');
       res.redirect('/');
     }
   });
