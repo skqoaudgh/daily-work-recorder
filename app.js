@@ -84,7 +84,9 @@ app.post('/work', async (req, res, next) => {
 app.get('/work/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
-    const endTime = new Date().toLocaleString('ko-KR');
+    const date = new Date();
+    date.setHours(date.getHours() + Number(process.env.HOUR));
+    const endTime = date.toLocaleString('ko-KR');
     const work = await Work.findById(id);
 
     work.endTime = endTime;
