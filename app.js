@@ -7,7 +7,7 @@ const favicon = require('serve-favicon');
 const path = require('path');
 
 const compression = require('compression');
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const { getFormattedDate } = require('./util');
 const Work = require('./model/Work');
